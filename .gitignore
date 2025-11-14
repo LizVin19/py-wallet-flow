@@ -1,0 +1,16 @@
+./venv
+.venv
+__py_cache__/
+*.pyc
+.idea/
+.vscode/
+
+.env
+.env.local
+.env.test
+
+*.log
+
+.pytest_cache/
+
+./потом

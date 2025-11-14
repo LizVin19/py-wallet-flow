@@ -1,0 +1,25 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: wallet_container
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "5430:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+  app:
+    build: .
+    container_name: wallet_app
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgresql+psycopg://${DB_USER}:${DB_PASS}@postgres:5432/${DB_NAME}
+    ports:
+      - "8000:8000"
+#    command: uvicorn main:app --host 0.0.0.0 --port 8000
+
+volumes:
+  db_data:
